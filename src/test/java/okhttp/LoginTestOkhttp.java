@@ -1,6 +1,7 @@
 package okhttp;
 
 import com.google.gson.Gson;
+import dto.ErrorDTO;
 import dto.UserDTO;
 import okhttp3.*;
 import org.testng.Assert;
@@ -34,5 +35,38 @@ public class LoginTestOkhttp {
         Response response = okHttpClient.newCall(request).execute();
 
         Assert.assertEquals(response.code(), 200);
+        System.out.println("message: " + response.message());
+        /*
+        response
+        - code and status word (OK, unauthorized)
+        - body
+         */
+    }
+
+    @Test
+    public void negativeEmailLoginTest() throws IOException {
+        UserDTO user = UserDTO.builder()
+                .username("testqa@gmail.com")
+                .password("123456Aa$")
+                .build();
+
+// create JSON body for request
+        RequestBody requestBody = RequestBody.create(gson.toJson(user), JSON);
+        // create request
+        Request request = new Request.Builder()
+                // take uri and add endpoint
+                .url(BASE_URI + "/v1/user/login/usernamepassword")
+                .post(requestBody)
+                .build();
+        // send request and get response
+        Response response = okHttpClient.newCall(request).execute();
+
+        Assert.assertEquals(response.code(), 401);
+        System.out.println(response.message());
+
+        ErrorDTO errorDTO = gson.fromJson(response.body().string(), ErrorDTO.class);
+        System.out.println(errorDTO.getMessage());
+        System.out.println(errorDTO.getError());
+        System.out.println(errorDTO.getStatus());
     }
 }

@@ -8,12 +8,13 @@ import org.testng.annotations.Test;
 
 public class LoginApiTests extends BaseTestApi{
 
-    @Test
+    @Test(priority = 1)
     public void positiveLoginTest() {
         System.out.println("token: " + token);
     }
 
-    @Test(description = "negative login API test with the wrong password and correct email")
+    @Test(description = "negative login API test with the wrong password and correct email",
+    priority = 2)
     public void negativeTestWrongPassword() {
         UserDTO user1 = UserDTO.builder()
                 .username("testqa20@gmail.com")

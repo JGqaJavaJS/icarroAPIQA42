@@ -55,6 +55,7 @@ public class LoginTestOkhttp {
         // create request
         Request request = new Request.Builder()
                 // take uri and add endpoint
+                //.header("authorization", token)
                 .url(BASE_URI + "/v1/user/login/usernamepassword")
                 .post(requestBody)
                 .build();

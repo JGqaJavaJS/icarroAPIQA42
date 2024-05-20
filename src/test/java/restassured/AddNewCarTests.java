@@ -2,6 +2,7 @@ package restassured;
 
 import dto.CarDTO;
 import io.restassured.http.ContentType;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import static io.restassured.RestAssured.given;
@@ -24,7 +25,7 @@ public class AddNewCarTests extends BaseTestApi{
                 .city("Tel Aviv")
                 .build();
 
-        given()
+        String message = given()
                 .header("Authorization", token)
                 .body(car)
                 .contentType(ContentType.JSON)
@@ -32,7 +33,10 @@ public class AddNewCarTests extends BaseTestApi{
                 .post("/v1/cars")
                 .then()
                 .assertThat()
-                .statusCode(200);
+                .statusCode(200) // assert on equal
+                .extract().path("message");
+        System.out.println("_________________" + message);
+        Assert.assertEquals(message, "Car added successfully");
     }
 
 }

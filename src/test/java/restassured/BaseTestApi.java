@@ -2,6 +2,7 @@ package restassured;
 
 import dto.UserDTO;
 import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.testng.annotations.BeforeSuite;
 import org.testng.asserts.SoftAssert;
@@ -31,6 +32,7 @@ public class BaseTestApi {
     public Response requestLogin(UserDTO methodUser) {
         return given()
                 .body(methodUser)
+               // .contentType(ContentType.JSON)
                 .when()
                 .post("/v1/user/login/usernamepassword")
                 .thenReturn();

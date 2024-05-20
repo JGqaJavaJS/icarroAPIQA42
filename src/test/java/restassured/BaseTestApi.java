@@ -3,9 +3,10 @@ package restassured;
 import dto.UserDTO;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import org.testng.asserts.SoftAssert;
+
+import java.util.Random;
 
 import static io.restassured.RestAssured.given;
 
@@ -35,4 +36,9 @@ public class BaseTestApi {
                 .thenReturn();
     }
 
+    public String extractRandomSerNumber() {
+        Random random = new Random();
+        int number = random.nextInt(10000, 99999);
+        return "1234567" + number;
+    }
 }

@@ -16,6 +16,10 @@ public class GetAllCitiesTests extends BaseTestApi{
                 .statusCode(200)
                 .extract().as(CitiesDTO.class);
 
-        System.out.println(allCities.getCities().get(3).getCity());
+        System.out.println(allCities
+                .getCities()
+                .get(3)
+                .getCity()
+        );
     }
 }
